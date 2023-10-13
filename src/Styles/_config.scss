@@ -1,0 +1,20 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+// colors 
+$primary-color : #4285F4;
+$text-color : #000000;
+$theme-color : #FFFFFF;
+$background_color : #F8FAFF;
+
+
+body {
+    background-color: $background_color;
+    color: $text-color;
+    scroll-behavior: smooth;
+    line-height: 1.7;
+    font-family: 'Montserrat', sans-serif;
+}
