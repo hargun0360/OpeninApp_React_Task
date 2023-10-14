@@ -1,74 +1,57 @@
 import React, { useEffect, useState } from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
+const NEW_YORK_CODE = "04000US36";
+const LOS_ANGELES_CODE = "04000US22";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const ChartLabel = ({ color, title }) => (
+  <div className="mainchart-label">
+    <div style={{ backgroundColor: color }}></div>
+    <span>{title}</span>
+  </div>
 );
 
-const ChartLabel = ({ color, title }) => {
-  return (
-    <div className="mainchart-label">
-      <div style={{ backgroundColor: `${color}` }}></div>
-      <span>{title}</span>
-    </div>
-  );
-};
-
 const Chart_Dashboard = () => {
-  const [lables, setLabels] = useState([]);
-  const [years, setYears] = useState();
+  const [labels, setLabels] = useState([]);
+  const [years, setYears] = useState([]);
   const [nyPopulation, setNyPopulation] = useState([]);
   const [laPopulation, setLaPopulation] = useState([]);
   const [chartData, setChartData] = useState();
 
-  const fetchData = async (city, set) => {
+  const fetchData = async (cityCode) => {
     try {
-      const response = await fetch(
-        `https://datausa.io/api/data?drilldowns=State&measures=Population&State=${city}`
-      );
+      const response = await fetch(`https://datausa.io/api/data?drilldowns=State&measures=Population&State=${cityCode}`);
       const json = await response.json();
-      const filteredData = json.data
-        .slice(0, 4)
-        .map((obj) => (obj.Population * Math.random()) / 1000);
-      set(filteredData);
+      const populationData = json.data.slice(0, 4).map(obj => (obj.Population * Math.random()) / 1000);
 
-      if (!years) {
-        const year = json.data.slice(0, 4).map((obj) => obj.Year);
-
-        setYears(year);
+      if (!years.length) {
+        const yearData = json.data.slice(0, 4).map(obj => obj.Year);
+        setYears(yearData);
       }
 
-      setLabels((prev) => [json.data[0].State, ...prev]);
-      return;
+      setLabels(prev => [json.data[0].State, ...prev]);
+      return populationData;
     } catch (error) {
       console.error("Error:", error);
     }
   };
-  const assignData = async () => {
-    await fetchData("04000US36", setNyPopulation);
-    await fetchData("04000US22", setLaPopulation);
-  };
 
   useEffect(() => {
-    assignData();
+    const getData = async () => {
+      const nyData = await fetchData(NEW_YORK_CODE);
+      const laData = await fetchData(LOS_ANGELES_CODE);
+      setNyPopulation(nyData);
+      setLaPopulation(laData);
+    };
+    
+    getData();
   }, []);
 
   useEffect(() => {
-    if (nyPopulation && laPopulation && years)
+    if (nyPopulation.length && laPopulation.length && years.length) {
       setChartData({
         labels: years,
         datasets: [
@@ -90,6 +73,7 @@ const Chart_Dashboard = () => {
           },
         ],
       });
+    }
   }, [nyPopulation, laPopulation, years]);
 
   const options = {
