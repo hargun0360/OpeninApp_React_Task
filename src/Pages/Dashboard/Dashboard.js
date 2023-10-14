@@ -4,6 +4,10 @@ import Sidebar from '../../Components/Sidebar';
 import { cardsData } from '../../Config';
 import Chart_Dashboard from '../../Components/Chart_Dashboard';
 import RadialChart_Dashboard from '../../Components/RadialChart_Dashboard';
+import ProfileSection from '../../Components/ProfileSection';
+import searchicon from '../../Assets/search.svg'
+import notification from '../../Assets/notification.svg'
+import profilepic from '../../Assets/profile.png'
 
 const DashboardContent = () => {
   return (<>
@@ -12,11 +16,18 @@ const DashboardContent = () => {
     <div className="dashboard-content">
       <header>
         <h2>Dashboard</h2>
-        <div className="search-bar">
-          <input type="text" placeholder="Search..." />
-          <button>🔍</button>
-          <button className="profile">👤</button>
+        <div className="dash-header-right">
+        <div className="search">
+          <input type="text" placeholder="search..." />
+          <img src={searchicon} alt="search icon" />
         </div>
+        <div className="notification">
+          <img src={notification} alt="notification icon" />
+        </div>
+        <div className="profile">
+          <img src={profilepic} alt="profile" />
+        </div>
+      </div>
       </header>
       <section className="stats">
         {
@@ -28,15 +39,9 @@ const DashboardContent = () => {
       <section className="chart_dashboard">
         <Chart_Dashboard />
       </section>
-      <section className="chart_dashboard">
+      <section className="radial_dashboard">
         <RadialChart_Dashboard />
-      </section>
-
-     
-
-      <section className="add-profile">
-        <button className="add-button">+</button>
-        <span>Add Profile</span>
+        <ProfileSection />
       </section>
     </div>
     </div>

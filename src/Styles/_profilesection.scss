@@ -1,0 +1,87 @@
+.profilecard {
+    background: white;
+    border-radius: 20px;
+    box-shadow: #e1e1e1 5px 6px 10px -3px;
+    width: 48%;
+    height: 256px;
+  }
+  
+  .profilecard-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .addprofile {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .addprofile-button {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .addprofile-button > img {
+    background: rgba(242, 242, 242, 1);
+    padding: 20px;
+    border-radius: 50%;
+  }
+  
+  .userinfo-name {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 24px;
+    word-wrap: break-word;
+  }
+  
+  .userinfo-data {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .userinfo-left,
+  .userinfo-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .userinfo-left > div,
+  .userinfo-right > div {
+    display: flex;
+    gap: 12px;
+    cursor: pointer;
+  }
+  
+  .userinfo-data-text {
+    color: #231f20;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: underline;
+    line-height: 24px;
+    word-wrap: break-word;
+  }
+  
+  .userinfo-data-img {
+    width: 17px;
+    height: 17px;
+    padding: 6px;
+    border-radius: 50%;
+    background: rgba(233, 249, 235, 1);
+  }
+  
+  .userinfo {
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 60px;
+  }
