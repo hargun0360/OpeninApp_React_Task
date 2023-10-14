@@ -4,7 +4,7 @@
     width: 250px;
     padding: 20px;
     font-family: Arial, sans-serif;
-    color: $background_color;
+    color: $background_colors;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -51,7 +51,7 @@
           align-items: center;
           margin-bottom: 20px;
           cursor: pointer;
-          color: $background_color;
+          color: $background_colors;
           opacity: 0.8;
           transition: background-color 0.3s;
 

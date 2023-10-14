@@ -8,11 +8,11 @@
 $primary-color : #4285F4;
 $text-color : #000000;
 $theme-color : #FFFFFF;
-$background_color : #F8FAFF;
+$background_colors : #F8FAFF;
 
 
 body {
-    background-color: $background_color;
+    background-color: $background_colors;
     color: $text-color;
     scroll-behavior: smooth;
     line-height: 1.7;

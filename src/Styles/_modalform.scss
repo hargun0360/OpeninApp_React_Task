@@ -1,0 +1,118 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 998;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-form {
+    background: white;
+    position: fixed;  
+    top: 50%;         
+    left: 50%;       
+    transform: translate(-50%, -50%); 
+    width: 450px;
+    max-width: 600px;   
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;    
+    background-color: white;
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h4 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+
+    .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: black;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 12px 15px;  // Increased padding for better appearance
+        
+        }
+    }
+
+    .tabs {
+        display: flex;
+        margin-top: 20px;
+
+        button {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-bottom: 2px solid grey;
+
+            &.active {
+                border-bottom: 2px solid blue;
+            }
+        }
+    }
+
+    .basic-form, .social-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+        
+
+        input {
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+       
+
+        .back-button, .done-button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .back-button {
+            background-color: #e1e1e1;
+            margin-right: 15px;
+        }
+
+        .done-button {
+            background-color: #4285F4;
+            color: white;
+        }
+    }
+}

@@ -25,12 +25,14 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    cursor: pointer;
   }
   
   .addprofile-button > img {
     background: rgba(242, 242, 242, 1);
     padding: 20px;
     border-radius: 50%;
+    cursor: pointer;
   }
   
   .userinfo-name {
