@@ -1,0 +1,84 @@
+.Dashboard-container{
+    display: flex;
+}
+
+  .dashboard-content {
+    padding: 20px;
+    width: calc(100vw - 250px);
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+  
+      h2 {
+        font-size: 24px;
+        margin: 0;
+      }
+  
+      .search-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+  
+        input[type="text"] {
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+  
+        button {
+          padding: 10px;
+          border: none;
+          background: none;
+  
+          &.profile {
+            background-color: #f5f5f5;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    .stats{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+    }
+  
+    .activities, .top-products {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+  
+      h3 {
+        font-size: 18px;
+        margin: 0;
+        margin-bottom: 10px;
+      }
+  
+      .content-placeholder {
+        height: 200px; // Adjust this as per your requirement
+        background-color: #f2f2f2;
+      }
+    }
+  
+    .add-profile {
+        display: flex;
+        align-items: center;
+    
+        .add-button {
+          font-size: 24px;
+          padding: 20px;
+          background-color: #f1f1f1;
+          border: none;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+      }
+  }
+  
