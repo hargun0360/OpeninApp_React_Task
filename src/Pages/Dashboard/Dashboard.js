@@ -3,6 +3,7 @@ import StatCard from '../../Components/StatCard';
 import Sidebar from '../../Components/Sidebar';
 import { cardsData } from '../../Config';
 import Chart_Dashboard from '../../Components/Chart_Dashboard';
+import RadialChart_Dashboard from '../../Components/RadialChart_Dashboard';
 
 const DashboardContent = () => {
   return (<>
@@ -27,12 +28,11 @@ const DashboardContent = () => {
       <section className="chart_dashboard">
         <Chart_Dashboard />
       </section>
-
-      <section className="top-products">
-        <h3>Top Products</h3>
-       
-        <div className="content-placeholder"></div>
+      <section className="chart_dashboard">
+        <RadialChart_Dashboard />
       </section>
+
+     
 
       <section className="add-profile">
         <button className="add-button">+</button>
