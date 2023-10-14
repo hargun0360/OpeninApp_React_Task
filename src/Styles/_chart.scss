@@ -1,0 +1,62 @@
+.chart_dashboard{
+    margin-bottom: 30px;
+}
+.mainchart {
+    background-color: white;
+    padding: 15px;
+    box-shadow: #e1e1e1 5px 6px 10px -3px;
+    border-radius: 20px;
+  }
+  
+  .mainchart-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+  }
+  
+  .mainchart-heading > h3 {
+    color: black;
+    font-size: 18px;
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+  
+  .mainchart-heading > span {
+    color: #858585;
+    font-size: 14px;
+  
+    font-weight: 400;
+    word-wrap: break-word;
+  }
+  .mainchar-label-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    align-items: center;
+  }
+  .mainchart-label {
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mainchart-label > div {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(233, 160, 160, 1);
+    border-radius: 100%;
+  }
+  
+  .mainchart-render {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .mainchart .mainchart-render canvas {
+    width: 80%;
+  }
