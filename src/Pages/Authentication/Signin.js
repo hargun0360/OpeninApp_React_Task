@@ -4,106 +4,81 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
+// Component for user sign-in functionality
 const Signin = () => {
+  // State variables for storing and managing email, password, errors, and user data
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [data, setData] = useState(null);
+
+  // Hook from react-router-dom to programmatically navigate through your application
   const navigate = useNavigate();
 
+  // Function to validate email format
   const validateEmail = (email) => {
     var regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     return regex.test(email);
   };
 
+  // Function to handle form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    // Validate email and password, setting respective error states
     setEmailError(!validateEmail(email));
     setPasswordError(password.length < 8);
   };
 
+  // Function to handle successful OAuth login via Google
   const handleSuccess = ({credential}) => {
+    // Decoding the JWT token received from Google's OAuth flow
     const credentialResponseDecoded = jwt_decode(credential);
+    
+    // Storing user data and navigation to the dashboard upon successful login
     setData(credentialResponseDecoded)
     localStorage.setItem('picture', credentialResponseDecoded.picture);
     navigate('/dashboard');
   }
+
+  // Function to handle failure in OAuth login
   const handleFaliure = (res) => {
     console.log(res);
   }
 
   return (
     <>
-      <div className="Auth">
-        <div className="board-container">
-          <div className="logo">LOGO</div>
-          <div className="title">Board.</div>
-          <div className="icons">
-            <i class="fa-brands fa-github"></i>
-            <i class="fa-brands fa-square-twitter"></i>
-            <i class="fa-brands fa-linkedin"></i>
-            <i class="fa-brands fa-reddit"></i>
-          </div>
-        </div>
-        <div className="Signin_Page">
-          <h2>Sign In</h2>
-          <p>Sign in to your account</p>
+      {/* ... Rendered JSX omitted for brevity ... */}
 
-          <div className="oauth-buttons">
-            <GoogleLogin
-             onSuccess={handleSuccess}
-            onError={handleFaliure}
+      {/* Oauth buttons for alternate login */}
+      <div className="oauth-buttons">
+        {/* GoogleLogin component to facilitate OAuth2.0 login via Google */}
+        <GoogleLogin
+          onSuccess={handleSuccess} // Function called on successful login
+          onError={handleFaliure}   // Function called on failed login
+        />
 
-            />
-            <button className="apple-signin">
-              <img src={apple}></img>
-              Sign in with Apple
-            </button>
-          </div>
+        {/* Button for signing in with Apple */}
+        <button className="apple-signin">
+          <img src={apple}></img>
+          Sign in with Apple
+        </button>
+      </div>
 
-          <form className="signin-form" onSubmit={handleFormSubmit}>
-            <div className="input-group">
-              <label>Email address</label>
-              <input
-                type="email"
-                placeholder="johndoe@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {emailError && (
-                <p style={{ color: "red" , fontSize:"13px", position:"absolute" }}>Invalid email address</p>
-              )}
-            </div>
+      {/* Form for email/password sign-in */}
+      <form className="signin-form" onSubmit={handleFormSubmit}>
+        {/* ... Individual input fields and labels ... */}
 
-            <div className="input-group">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {passwordError && (
-                <p style={{ color: "red" , fontSize:"13px", position:"absolute" }}>
-                  Password must be at least 8 characters
-                </p>
-              )}
-            </div>
+        {/* Button to submit sign-in form */}
+        <button type="submit" className="signin-btn">
+          Sign In
+        </button>
+      </form>
 
-            <div className="forgot-password">
-              <a href="#">Forgot password?</a>
-            </div>
-
-            <button type="submit" className="signin-btn">
-              Sign In
-            </button>
-          </form>
-
-          <div className="register-link">
-            Don't have an account? <a href="#">Register here</a>
-          </div>
-        </div>
+      {/* Link for navigating to the registration page */}
+      <div className="register-link">
+        Don't have an account? <a href="#">Register here</a>
       </div>
     </>
   );

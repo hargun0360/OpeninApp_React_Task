@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
+// Constants for city codes
 const NEW_YORK_CODE = "04000US36";
 const LOS_ANGELES_CODE = "04000US22";
 
+// Registering the modules required for the chart
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+// A functional component to create and render chart labels
 const ChartLabel = ({ color, title }) => (
   <div className="mainchart-label">
     <div style={{ backgroundColor: color }}></div>
@@ -14,24 +17,31 @@ const ChartLabel = ({ color, title }) => (
   </div>
 );
 
+// Main component for rendering the dashboard
 const Chart_Dashboard = () => {
+  // Initializing state variables to manage label, years and population data
   const [labels, setLabels] = useState([]);
   const [years, setYears] = useState([]);
   const [nyPopulation, setNyPopulation] = useState([]);
   const [laPopulation, setLaPopulation] = useState([]);
   const [chartData, setChartData] = useState();
 
+  // Fetches data for a specified city code and updates the state
   const fetchData = async (cityCode) => {
     try {
+      // Fetching data from the API
       const response = await fetch(`https://datausa.io/api/data?drilldowns=State&measures=Population&State=${cityCode}`);
       const json = await response.json();
+      // Extracting and transforming population data
       const populationData = json.data.slice(0, 4).map(obj => (obj.Population * Math.random()) / 1000);
 
+      // If the years array is empty, extract and set the year data
       if (!years.length) {
         const yearData = json.data.slice(0, 4).map(obj => obj.Year);
         setYears(yearData);
       }
 
+      // Updating labels
       setLabels(prev => [json.data[0].State, ...prev]);
       return populationData;
     } catch (error) {
@@ -39,6 +49,7 @@ const Chart_Dashboard = () => {
     }
   };
 
+  // UseEffect to fetch and set population data when the component mounts
   useEffect(() => {
     const getData = async () => {
       const nyData = await fetchData(NEW_YORK_CODE);
@@ -50,6 +61,7 @@ const Chart_Dashboard = () => {
     getData();
   }, []);
 
+  // UseEffect to set the chart data when the population data is fetched
   useEffect(() => {
     if (nyPopulation.length && laPopulation.length && years.length) {
       setChartData({
@@ -76,6 +88,7 @@ const Chart_Dashboard = () => {
     }
   }, [nyPopulation, laPopulation, years]);
 
+  // Configuring options for the bar chart
   const options = {
     indexAxis: "x",
     elements: {

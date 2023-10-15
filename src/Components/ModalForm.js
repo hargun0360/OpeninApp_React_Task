@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
+// Functional component to display a modal form with two tabs: Basic and Social.
 const ModalForm = ({ closeModal, saveData }) => {
+  // State hook to manage form data.
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -9,12 +11,17 @@ const ModalForm = ({ closeModal, saveData }) => {
     youtube: "",
   });
 
+  // State hook to manage the active tab: Basic or Social.
   const [activeTab, setActiveTab] = useState("Basic");
+  
+  // State hook to manage validation errors.
   const [validationErrors, setValidationErrors] = useState({});
 
+  // Regular expression patterns for email and phone validation.
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const phonePattern = /^\d{10}$/;
 
+  // Function to handle form input changes and update state.
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,39 +29,48 @@ const ModalForm = ({ closeModal, saveData }) => {
     });
   };
 
+  // Function to prevent modal close when the modal itself is clicked.
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
 
+  // Function to validate form data before submission.
   const validateForm = () => {
     let errors = {};
-  
+
+    // Validate email format.
     if (!emailPattern.test(formData.email)) {
       errors.email = "Invalid email address.";
     }
-  
+    
+    // Validate phone format.
     if (!phonePattern.test(formData.phone)) {
       errors.phone = "Invalid phone number.";
     }
 
+    // Ensure name is provided.
     if (formData.name === "" || formData.name === undefined) {
-        errors.name = "Name requiired";
-      }
-  
+      errors.name = "Name requiired";
+    }
+    
+    // Update state with any validation errors.
     setValidationErrors(errors);
-  
+    
+    // If no errors, form is valid.
     return Object.keys(errors).length === 0;
   };
   
-
+  // Function to handle form submission.
   const handleSubmit = () => {
+    // Only proceed if form is valid.
     if (validateForm()) {
+      // Send data to parent and close modal.
       saveData(formData);
       closeModal();
     }
   };
-  
 
+  // Render the modal form with tabs and input fields.
   return (
     <>
       <div className="modal-container" onClick={closeModal}>
@@ -66,7 +82,9 @@ const ModalForm = ({ closeModal, saveData }) => {
               X
             </button>
           </div>
+          {/* Tab navigation */}
           <div className="tabs">
+            {/* Basic Info Tab */}
             <button
               className={activeTab === "Basic" ? "active" : ""}
               onClick={() => setActiveTab("Basic")}
@@ -74,6 +92,7 @@ const ModalForm = ({ closeModal, saveData }) => {
             >
               Basic
             </button>
+            {/* Social Info Tab */}
             <button
               className={activeTab === "Social" ? "active" : ""}
               onClick={() => setActiveTab("Social")}
@@ -82,8 +101,11 @@ const ModalForm = ({ closeModal, saveData }) => {
               Social
             </button>
           </div>
+          {/* Basic Info Form Section */}
           {activeTab === "Basic" && (
             <div className="basic-form">
+              {/* Each input wrapper contains a label, an input field, and a possible error message */}
+              {/* Name Field */}
               <div className="input-wrapper">
                 <label>Name*</label>
                 <input
@@ -96,6 +118,7 @@ const ModalForm = ({ closeModal, saveData }) => {
                 />
                 {validationErrors.name && <p className="error-text">{validationErrors.name}</p>}
               </div>
+              {/* Email Field */}
               <div className="input-wrapper">
                 <label>Email*</label>
                 <input
@@ -108,7 +131,7 @@ const ModalForm = ({ closeModal, saveData }) => {
                 />
                  {validationErrors.email && <p className="error-text">{validationErrors.email}</p>}
               </div>
-
+              {/* Phone Field */}
               <div className="input-wrapper">
                 <label>Phone*</label>
                 <input
@@ -123,8 +146,10 @@ const ModalForm = ({ closeModal, saveData }) => {
               </div>
             </div>
           )}
+          {/* Social Info Form Section */}
           {activeTab === "Social" && (
             <div className="social-form">
+              {/* Instagram Field */}
               <div className="input-wrapper">
                 <label>Instagram Link (Optional)</label>
                 <input
@@ -135,6 +160,7 @@ const ModalForm = ({ closeModal, saveData }) => {
                   placeholder="Eg. ..instagram.com/username"
                 />
               </div>
+              {/* YouTube Field */}
               <div className="input-wrapper">
                 <label>YouTube Link (Optional)</label>
                 <input
@@ -147,6 +173,7 @@ const ModalForm = ({ closeModal, saveData }) => {
               </div>
             </div>
           )}
+          {/* Form Footer with Back and Done buttons */}
           <div className="modal-footer">
             <button
               className="back-button"

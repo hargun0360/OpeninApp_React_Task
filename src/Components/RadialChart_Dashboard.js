@@ -1,12 +1,14 @@
-
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
+// Label component for displaying legend items
 const Label = (props) => {
   const { title, color, portion } = props;
   return (
     <div className="label-container">
+      {/* Display colored circle and title */}
       <div className="label-heading">
+        {/* Colored circle */}
         <div
           style={{
             backgroundColor: `${color}`,
@@ -15,10 +17,12 @@ const Label = (props) => {
             borderRadius: "50%",
           }}
         ></div>
+        {/* Title */}
         <span style={{ color: "black", fontSize: "14px", fontWeight: "700" }}>
           {title}
         </span>
       </div>
+      {/* Display portion value */}
       <div className="label-portion">
         <span
           style={{
@@ -35,9 +39,12 @@ const Label = (props) => {
   );
 };
 
+// Main component to display the Radial (Doughnut) Chart
 const RadialChart_Dashboard = () => {
+  // Registering ChartJS plugins for use
   ChartJS.register(ArcElement, Tooltip, Legend);
 
+  // Static product data
   const productData = [
     {
       title: "Basic Tees",
@@ -56,6 +63,7 @@ const RadialChart_Dashboard = () => {
     },
   ];
 
+  // Data for the doughnut chart
   const data = {
     datasets: [
       {
@@ -73,6 +81,7 @@ const RadialChart_Dashboard = () => {
     ],
   };
 
+  // Configuration options for the doughnut chart
   const options = {
     tooltips: {
       enabled: true,
@@ -85,15 +94,20 @@ const RadialChart_Dashboard = () => {
   return (
     <div className="product-card">
       <div className="product-card-container">
+        {/* Title and subtitle section */}
         <div className="product-card-text">
           <h3>Top Products</h3>
           <p>May-June 2023</p>
         </div>
+        {/* Chart and label section */}
         <div className="productcard-data">
+          {/* Doughnut chart view */}
           <div className="productcard-view">
             <Doughnut data={data} options={options} />
           </div>
+          {/* Information labels for each slice of the doughnut */}
           <div className="product-info">
+            {/* Mapping through productData to generate labels */}
             {productData.map((val, ind) => {
               return (
                 <Label
