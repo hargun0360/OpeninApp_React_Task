@@ -16,7 +16,6 @@ const DashboardContent = () => {
         if(localStorage.getItem('picture') !== undefined) {
             setUserProfile(localStorage.getItem('picture'));
         }
-        console.log(userProfile);
     },[])
     const navigate = useNavigate();
 

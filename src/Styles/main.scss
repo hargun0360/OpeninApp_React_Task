@@ -8,3 +8,11 @@
 @import "profilesection";
 @import "modalform";
 
+@media (max-width: 768px) {
+   
+    .dashboard-content{
+        margin: 0 10px !important;
+        width: 100vw !important;
+    }
+   
+  }

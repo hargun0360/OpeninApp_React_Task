@@ -8,29 +8,29 @@ const sections = [
     { label: 'Settings', icon: 'fa-solid fa-gear' },
   ];
 
-{/* <i class="fa-solid fa-tags"></i>
-<i class="fa-solid fa-calendar-days"></i>
-<i class="fa-solid fa-circle-user"></i>
-<i class="fa-solid fa-gear"></i>
-<i class="fa-regular fa-bell"></i>
-<i class="fa-solid fa-magnifying-glass"></i>
-<i class="fa-solid fa-user-group"></i>
-<i class="fa-solid fa-money-bill"></i>
-<i class="fa-regular fa-thumbs-up"></i>
-<i class="fa-solid fa-xmark"></i> */}
-
 const Sidebar = () => {
   const [activeSection, setActiveSection] = useState('Dashboard');
+  const [isMobileActive, setIsMobileActive] = useState(false);
 
   const handleItemClick = (section) => {
     setActiveSection(section);
+    setIsMobileActive(false); 
   }
 
-  return (
-    <div className="sidebar">
+  const toggleMobileMenu = () => {
+    setIsMobileActive(!isMobileActive);
+  }
+
+  return (<>
+    <div className="hamburger-menu" onClick={toggleMobileMenu}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div className={`sidebar ${isMobileActive ? 'mobile-active' : ''}`}>
      <div className= "inside_container">
       <h1>Board.</h1>
-      <div className="ul-container">
+        <div className={`ul-container ${isMobileActive ? 'mobile-active' : ''}`}>
       <ul>
         {sections.map(({ label, icon }) => (
           <li 
@@ -49,7 +49,7 @@ const Sidebar = () => {
     <div className="footer-item">Contact Us</div>
   </footer>
     </div>
-  )
+    </>)
 }
 
 export default Sidebar;
