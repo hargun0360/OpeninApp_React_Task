@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import google from "../../Assets/icons8-google.svg";
 import apple from "../../Assets/icons8-apple.svg";
+import { GoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     var regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -17,6 +22,16 @@ const Signin = () => {
     setEmailError(!validateEmail(email));
     setPasswordError(password.length < 8);
   };
+
+  const handleSuccess = ({credential}) => {
+    const credentialResponseDecoded = jwt_decode(credential);
+    setData(credentialResponseDecoded)
+    localStorage.setItem('picture', credentialResponseDecoded.picture);
+    navigate('/dashboard');
+  }
+  const handleFaliure = (res) => {
+    console.log(res);
+  }
 
   return (
     <>
@@ -36,10 +51,11 @@ const Signin = () => {
           <p>Sign in to your account</p>
 
           <div className="oauth-buttons">
-            <button className="google-signin">
-              <img src={google}></img>
-              Sign in with Google
-            </button>
+            <GoogleLogin
+             onSuccess={handleSuccess}
+            onError={handleFaliure}
+
+            />
             <button className="apple-signin">
               <img src={apple}></img>
               Sign in with Apple

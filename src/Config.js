@@ -6,3 +6,6 @@ export const cardsData = [
   ];
 
 
+export const clientID  = "209857792114-12kt9pv7ujrbdp36ovh6qdneres5juls.apps.googleusercontent.com";
+
+export const clientSecret = "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";

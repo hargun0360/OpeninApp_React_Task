@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import StatCard from '../../Components/StatCard';
 import Sidebar from '../../Components/Sidebar';
 import { cardsData } from '../../Config';
@@ -8,8 +8,18 @@ import ProfileSection from '../../Components/ProfileSection';
 import searchicon from '../../Assets/search.svg'
 import notification from '../../Assets/notification.svg'
 import profilepic from '../../Assets/profile.png'
+import { useNavigate } from 'react-router-dom';
 
 const DashboardContent = () => {
+    const [userProfile, setUserProfile] = useState(undefined);
+    useEffect(()=>{
+        if(localStorage.getItem('picture') !== undefined) {
+            setUserProfile(localStorage.getItem('picture'));
+        }
+        console.log(userProfile);
+    },[])
+    const navigate = useNavigate();
+
   return (<>
   <div className="Dashboard-container">
     <Sidebar />
@@ -24,8 +34,13 @@ const DashboardContent = () => {
         <div className="notification">
           <img src={notification} alt="notification icon" />
         </div>
-        <div className="profile">
-          <img src={profilepic} alt="profile" />
+        <div className="profile" onClick={() => {
+            if(window.confirm("Do you want to logout?")){
+                localStorage.clear();
+                navigate('/');
+            }
+        }}>
+          <img src={userProfile ? userProfile : profilepic} alt="profile" />
         </div>
       </div>
       </header>
