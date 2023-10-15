@@ -60,4 +60,25 @@
 .radial_dashboard{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
 }
+
+@media (max-width: 800px){
+    .radial_dashboard{
+        flex-direction: column;
+
+    }
+    .product-card , .profilecard, .profilecard-container, .addprofile, .addprofile-button{
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 30px;
+    }
+    
+}   
+@media (max-width: 650px){
+    header{
+        flex-direction: column;
+    }
+    
+}   

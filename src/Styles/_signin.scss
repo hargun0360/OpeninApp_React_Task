@@ -189,3 +189,22 @@
     }
   }
 }
+
+@media (max-width: 810px){
+  .board-container , .logo , .title , .icons , .board-container::before{
+    display: none !important;
+  }
+ 
+  .Signin_Page, .signin-form{
+    margin-left: 0 !important;
+    padding: 0;
+    width: 100vw;
+    max-width: 450px !important;
+  }
+  .oauth-buttons{
+    width: 28rem;
+  }
+  .Auth{
+    justify-content: flex-start;
+  }
+}
