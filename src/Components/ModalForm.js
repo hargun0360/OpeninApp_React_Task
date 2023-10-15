@@ -10,6 +10,10 @@ const ModalForm = ({ closeModal, saveData }) => {
   });
 
   const [activeTab, setActiveTab] = useState("Basic");
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const phonePattern = /^\d{10}$/;
 
   const handleChange = (e) => {
     setFormData({
@@ -22,10 +26,34 @@ const ModalForm = ({ closeModal, saveData }) => {
     e.stopPropagation();
   };
 
-  const handleSubmit = () => {
-    saveData(formData);
-    closeModal();
+  const validateForm = () => {
+    let errors = {};
+  
+    if (!emailPattern.test(formData.email)) {
+      errors.email = "Invalid email address.";
+    }
+  
+    if (!phonePattern.test(formData.phone)) {
+      errors.phone = "Invalid phone number.";
+    }
+
+    if (formData.name === "" || formData.name === undefined) {
+        errors.name = "Name requiired";
+      }
+  
+    setValidationErrors(errors);
+  
+    return Object.keys(errors).length === 0;
   };
+  
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      saveData(formData);
+      closeModal();
+    }
+  };
+  
 
   return (
     <>
@@ -66,6 +94,7 @@ const ModalForm = ({ closeModal, saveData }) => {
                   placeholder="Eg. John Doe"
                   required
                 />
+                {validationErrors.name && <p className="error-text">{validationErrors.name}</p>}
               </div>
               <div className="input-wrapper">
                 <label>Email*</label>
@@ -77,6 +106,7 @@ const ModalForm = ({ closeModal, saveData }) => {
                   placeholder="Eg. John@xyz.com"
                   required
                 />
+                 {validationErrors.email && <p className="error-text">{validationErrors.email}</p>}
               </div>
 
               <div className="input-wrapper">
@@ -89,6 +119,7 @@ const ModalForm = ({ closeModal, saveData }) => {
                   placeholder="Eg. 9123456789"
                   required
                 />
+                {validationErrors.phone && <p className="error-text">{validationErrors.phone}</p>}
               </div>
             </div>
           )}
